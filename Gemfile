@@ -12,6 +12,8 @@ gem "bootsnap", require: false
 
 gem "base62-rb", '0.3.1'
 
+gem 'dotenv-rails', '2.8.1'
+
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem 'rspec-rails', '~> 4.0.1'
