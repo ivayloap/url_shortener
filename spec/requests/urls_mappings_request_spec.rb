@@ -29,12 +29,13 @@ RSpec.describe UrlsMappingsController, type: :request do
   describe 'POST #decode' do
     context 'with a valid short URL' do
       let!(:url_mapping) { create(:url_mapping) }
+      let(:short_url) { 'https://short_url_host.com/' + url_mapping.short_url }
 
       it 'decodes and returns the corresponding long URL' do
-        post '/decode', params: { short_url: 'https://short_url_host.com/' + url_mapping.short_url }
+        post '/decode', params: { short_url:  'https://short_url_host.com/' + url_mapping.short_url}
         expect(response).to have_http_status(:ok)
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response['long_url']).to eq url_mapping.long_url
+        expect(parsed_response['long_url']).to eq ({url: url_mapping.long_url, short_url: short_url}.stringify_keys)
       end
     end
 

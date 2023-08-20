@@ -6,12 +6,18 @@ class ShortenerService
   end
 
   def encode
-    File.join(url_host, encoded.short_url)
+    {
+      url: url,
+      short_url: File.join(url_host, encoded.short_url)
+    }
   end
 
   def decode
     Rails.cache.fetch(cache_key, expires_in: ENV.fetch('READ_CACHE_EXPIRATION_HOURS', 1).hours) do
-      by_short_url.long_url
+      {
+        url: by_short_url.long_url,
+        short_url: url
+      }
     end
   end
 
