@@ -11,7 +11,6 @@ class UrlSyntaxValidator < ActiveModel::EachValidator
   private
 
   def raise_error(record, value)
-    record.errors.add(value, 'is not a valid URL')
     raise Errors::InvalidUrlError.new("The provided URI is not correct -> '#{value}'")
   end
 end
